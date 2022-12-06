@@ -1,36 +1,12 @@
-/// A comment.
-import 'dart:developer' as log;
-
+// import 'package:flutter/material.dart';
 // Color Shading
 
 void main() {
-  // var value = 0xff00fdfc;
-  // var r = (0x00ff0000 & value) >> 16;
-  // var g = (0x0000ff00 & value) >> 8;
-  // var b = (0x000000ff & value) >> 0;
-  // if (value > 0xffffff) value = (0x00ffffff & value);
-  // print(value.toRadixString(2));
-  // print('$r ,$g ,$b');
-
-  // print((0xff - r) ~/ (4 + 1));
-  // print(((0xff - r) / (4 + 1)).toInt());
-  // var lSteps = 4;
-  // // var dSteps = 5;
-  print(ColorShade(0xff0000));
-  // var idx = 1;
-  // final rScale = (((0xff - r) / (lSteps + 1)) * idx).toInt();
-  // final gScale = (((0xff - g) / (lSteps + 1)) * idx).toInt();
-  // final bScale = (((0xff - b) / (lSteps + 1)) * idx).toInt();
-  // var val =
-  //     (a | ((r + rScale) << 16) | ((g + gScale) << 8) | ((b + bScale) << 0)) &
-  //         0xffffffff;
-  // print('${r + rScale} ,${g + gScale} ,${b + bScale}');
+  var red = const ColorShader(0xffffff00).palatte[1];
+  print(red);
 }
 
-class ColorShade {
-
-  // late List csList;
-
+class ColorShader {
   /// Normaly Color Construct is from the lower 32 bits
   /// but [ColorShade] not support alpha value in hex or opcity
   /// so [ColorShade] Construct is from the lower 24 bits
@@ -47,12 +23,7 @@ class ColorShade {
   /// expressed as `const ColorShade(0xRRGGBB)`.
   ///
   /// int 32bits, int 24bits
-  ColorShade(int value, {int? lSteps, int? dSteps}){
-    /// Tranfrom 32bits to 24bits
-    this.value = value & 0x00ffffff;
-    this.lightSteps = lSteps ?? 4;
-    this.darkSteps = dSteps ?? 5;
-  }
+  const ColorShader(int value) : value = value & 0x00ffffff;
 
   /// Construct a color from the lower 8 bits of four integers.
   ///
@@ -60,7 +31,7 @@ class ColorShade {
   /// * `g` is [green], from 0 to 255.
   /// * `b` is [blue], from 0 to 255.
   ///
-   /// Out of range values are brought into range using modulo 255.
+  /// Out of range values are brought into range using modulo 255.
   ///
   /// See also [fromRGB], which takes the alpha value as a floating point
   /// value.
@@ -68,63 +39,71 @@ class ColorShade {
   /// For example, ColorShade(255, 56, 211).
   /// 255 is the Red value in hex, 56 is the Green value in hex,
   /// and 211 is the Blue value in hex.
-  ColorShade.fromRGB(int r, int g, int b, {int? lSteps, int? dSteps}){
-    this.value = to32bits(r, g, b) & 0xffffff;
-    this.lightSteps = lSteps ?? 4;
-    this.darkSteps = dSteps ?? 5;   
-    lightShade(1);
-    }
+  const ColorShader.fromRGB(
+    int r,
+    int g,
+    int b,
+  ) : value = (0xff000000 | (r << 16) | (g << 8) | (b << 0)) & 0xffffffff;
 
-  late int value;
-  late int lightSteps;
-  late int darkSteps;
+  // ///Propertie
+  final int value;
+  // late Color color;
+  // int lightScales;
+  // int darkScales;
 
-    /// The red channel of this color in an 8 bit value.
-int get red => (0x00ff0000 & value) >> 16;
-    /// The red channel of this color in an 8 bit value.
-int get green => (0x0000ff00 & value) >> 8;
-    /// The red channel of this color in an 8 bit value.
-int get blue => (0x000000ff & value) >> 0;
+  // /// The red channel of this color in an 8 bit value.
+  // int get red => (0x00ff0000 & value) >> 16;
 
+  // /// The red channel of this color in an 8 bit value.
+  // int get green => (0x0000ff00 & value) >> 8;
 
+  // /// The red channel of this color in an 8 bit value.
+  // int get blue => (0x000000ff & value) >> 0;
 
-  // The Light Red Step value scale calculate 
-  int get rLScale => (0xff - red) ~/ (lightSteps + 1);
-  // The Light Red Step value scale calculate 
-  int get rDScale => red ~/ (darkSteps + 1);
-  // The Light Green Step value scale calculate 
-  int get gLScale => (0xff - green) ~/ (lightSteps + 1);
-  // The Dark Green Step value scale calculate 
-  int get gDScale => green ~/ (darkSteps + 1);
-  // The Light Blue Step value scale calculate 
-  int get bLScale => (0xff - blue) ~/ (lightSteps + 1);
-  // The Dark Blue Step value scale calculate 
-  int get bDScale => blue ~/ (darkSteps + 1);
-
-  int lightShade(int idx){ 
-    if(idx <= lightSteps+darkSteps+1) return to32bits(red + (rLScale*idx),green + (gLScale*idx),blue + (bLScale*idx));
-    assert(idx <= lightSteps+darkSteps+1, 'index is Shade Scale value about 1 to ${lightSteps+darkSteps+1}');
-    log.log('$idx out of Shade Scale ${lightSteps+darkSteps+1}',name: 'Error');
-    print('index is Shade Scale value about 1 to ${lightSteps+darkSteps+1}');
-    return -1;
-    }
-  
-  int darkShade(int idx){
-    if(idx <= lightSteps+darkSteps+1) return to32bits(red - (rDScale*idx),green - (gDScale*idx),blue - (bDScale*idx));
-    assert(idx <= lightSteps+darkSteps+1, 'index is Shade Scale value about 1 to ${lightSteps+darkSteps+1}');
-    log.log('$idx out of Shade Scale ${lightSteps+darkSteps+1}',name: 'Error');
-    print('index is Shade Scale value about 1 to ${lightSteps+darkSteps+1}');
-    return -1;
-    }
-  
-  int to32bits(int r, int g, int b,) {
-    return (0xff000000 |
-            (r << 16) |
-            (g << 8 ) |
-            (b << 0 ))& 0xffffffff;
+  // ColorShader get palatte => _palatte();
+  // @override
+  List<int> get palatte {
+    return [1, 2, 3];
   }
 
-  // int shading(int idx) {
-  //   return (0xffffffff);
+  // List<Color> _palatte()=> [Color(0xffffffff)];
+
+  // int lightShading(int index) {
+  //   return to32bits(
+  //       red + ((0xff - red) ~/ (lightScales + 1) * index),
+  //       green + ((0xff - green) ~/ (lightScales + 1) * index),
+  //       blue + ((0xff - blue) ~/ (lightScales + 1) * index));
+  //   // assert(idx <= lightSteps+darkSteps+1, 'index is Shade Scale value about 1 to ${lightSteps+darkSteps+1}');
+  //   // log.log('$idx out of Shade Scale ${lightSteps+darkSteps+1}',name: 'Error');
+  //   // print('index is Shade Scale value about 1 to ${lightSteps+darkSteps+1}');
+  //   // return -1;
+  // }
+
+  // int darkShading(int index) {
+  //   return to32bits(
+  //       red + (red ~/ (lightScales + 1) * index),
+  //       green + (green ~/ (lightScales + 1) * index),
+  //       blue + (blue ~/ (lightScales + 1) * index));
+  // }
+
+  // int to32bits(
+  //   int r,
+  //   int g,
+  //   int b,
+  // ) {
+  //   return (0xff000000 | (r << 16) | (g << 8) | (b << 0)) & 0xffffffff;
   // }
 }
+
+// // The Light Red Step value scale calculate
+// int get rLScale => (0xff - red) ~/ (lightSteps + 1);
+// // The Light Red Step value scale calculate
+// int get rDScale => red ~/ (darkSteps + 1);
+// // The Light Green Step value scale calculate
+// int get gLScale => (0xff - green) ~/ (lightSteps + 1);
+// // The Dark Green Step value scale calculate
+// int get gDScale => green ~/ (darkSteps + 1);
+// // The Light Blue Step value scale calculate
+// int get bLScale => (0xff - blue) ~/ (lightSteps + 1);
+// // The Dark Blue Step value scale calculate
+// int get bDScale => blue ~/ (darkSteps + 1);
