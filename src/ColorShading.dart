@@ -16,7 +16,7 @@ void main() {
   // print(((0xff - r) / (4 + 1)).toInt());
   // var lSteps = 4;
   // // var dSteps = 5;
-  print(new ColorShade.fromRGB(255, 0, 0).toString());
+  print(ColorShade(0xff0000));
   // var idx = 1;
   // final rScale = (((0xff - r) / (lSteps + 1)) * idx).toInt();
   // final gScale = (((0xff - g) / (lSteps + 1)) * idx).toInt();
@@ -42,8 +42,8 @@ class ColorShade {
   /// * / Bits 8-15 are the green value.
   /// * / Bits 0-7 are the blue value.
   ///
-  /// In other words, if RR the red value in hex,GG the green value in hex,
-  /// and BB the blue value in hex, a color can be
+  /// In other words, if 'RR' the red value in hex, 'GG' the green value in hex,
+  /// and 'BB' the blue value in hex, a color can be
   /// expressed as `const ColorShade(0xRRGGBB)`.
   ///
   /// int 32bits, int 24bits
