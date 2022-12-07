@@ -2,8 +2,15 @@
 // Color Shading
 
 void main() {
-  var red = const ColorShader(0xffffff00).palatte[1];
-  print(red);
+  var red = const ColorShader(0xffff0000);
+  print(red.darkShading(darkLv: 4,pos: 4).toRadixString(16));
+  print(red.darkShading(darkLv: 4,pos: 3).toRadixString(16));
+  print(red.darkShading(darkLv: 4,pos: 2).toRadixString(16));
+  print(red.darkShading(darkLv: 4,pos: 1).toRadixString(16));
+  print(red.lightShading(lightLv: 4,pos: 1).toRadixString(16));
+  print(red.lightShading(lightLv: 4,pos: 2).toRadixString(16));
+  print(red.lightShading(lightLv: 4,pos: 3).toRadixString(16));
+  print(red.lightShading(lightLv: 4,pos: 4).toRadixString(16));
 }
 
 class ColorShader {
@@ -47,37 +54,79 @@ class ColorShader {
 
   // ///Propertie
   final int value;
+  // List<int> get shade => List.empty();
   // late Color color;
-  // int lightScales;
-  // int darkScales;
+  // int? lightLv;
+  // int? darkShade;
 
-  // /// The red channel of this color in an 8 bit value.
-  // int get red => (0x00ff0000 & value) >> 16;
+  /// The red channel of this color in an 8 bit value.
+  int get red => (0x00ff0000 & value) >> 16;
 
-  // /// The red channel of this color in an 8 bit value.
-  // int get green => (0x0000ff00 & value) >> 8;
+  /// The red channel of this color in an 8 bit value.
+  int get green => (0x0000ff00 & value) >> 8;
 
-  // /// The red channel of this color in an 8 bit value.
-  // int get blue => (0x000000ff & value) >> 0;
+  /// The red channel of this color in an 8 bit value.
+  int get blue => (0x000000ff & value) >> 0;
 
-  // ColorShader get palatte => _palatte();
-  // @override
-  List<int> get palatte {
-    return [1, 2, 3];
+  List<int> shader({int? lightLv, int? darkLv, double? scale}) {
+    return shader();
   }
 
-  // List<Color> _palatte()=> [Color(0xffffffff)];
+  List<int> lightShader({int? lightLv, double? scale}){
+    return lightShader();
+  }
+  
+  List<int> darkShader({int? lightLv, double? scale}){
+    return darkShader();
+  }
 
-  // int lightShading(int index) {
-  //   return to32bits(
-  //       red + ((0xff - red) ~/ (lightScales + 1) * index),
-  //       green + ((0xff - green) ~/ (lightScales + 1) * index),
-  //       blue + ((0xff - blue) ~/ (lightScales + 1) * index));
-  //   // assert(idx <= lightSteps+darkSteps+1, 'index is Shade Scale value about 1 to ${lightSteps+darkSteps+1}');
-  //   // log.log('$idx out of Shade Scale ${lightSteps+darkSteps+1}',name: 'Error');
-  //   // print('index is Shade Scale value about 1 to ${lightSteps+darkSteps+1}');
-  //   // return -1;
-  // }
+  /// Return new Color with lighter shade
+  int darkShading({
+
+    /// [darkLv] is 'dark level scales'
+    required int darkLv, 
+
+    /// [pos] is position of Color in 'dark level scales'
+    required int pos, 
+
+    /// [scale]
+    double? scale})
+    {
+    assert(darkLv != 0, 'dark shade level was zero.');
+    assert(darkLv >= pos && pos < 0, 'position was over dark shade level');
+    assert(scale! >= 0.0, 'scale was less 0.0');
+    assert(scale! <= 1.0, 'scale was over 1.0');
+    scale = scale ?? 1.0;
+    return ( 0xff000000                                                                  |
+                ((red - (red ~/ (darkLv + 1) * scale * pos)).toInt() << 16)    |
+                ((green - (green ~/ (darkLv + 1) * scale * pos)).toInt() << 8) |
+                ((blue - (blue ~/ (darkLv + 1) * scale * pos)).toInt() << 0 ) & 0xffffffff 
+    );
+  }
+
+  /// Return new Color with lighter shade
+  int lightShading({
+    /// [lightLv] is 'light level scales'
+    required int lightLv, 
+
+    /// [pos] is position of Color in 'light level scales'
+    required int pos, 
+
+    /// [scale]
+    double? scale})
+    {
+    assert(lightLv != 0, 'light shade level was zero.');
+    assert(lightLv >= pos && pos < 0, 'position was over light shade level');
+    assert(scale! >= 0.0, 'scale was less 0.0');
+    assert(scale! <= 1.0, 'scale was over 1.0');
+    scale = scale ?? 1.0;
+    return ( 0xff000000                                                                  |
+                ((red + ((0xff - red) ~/ (lightLv + 1) * scale * pos)).toInt() << 16)    |
+                ((green + ((0xff - green) ~/ (lightLv + 1) * scale * pos)).toInt() << 8) |
+                ((blue + ((0xff - blue) ~/ (lightLv + 1) * scale * pos)).toInt() << 0 ) & 0xffffffff 
+    );
+  }
+
 
   // int darkShading(int index) {
   //   return to32bits(
