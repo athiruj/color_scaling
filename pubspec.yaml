@@ -1,15 +1,16 @@
-name: my_app
+name: color_shader
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+# homepage: https://www.example.com
 
 environment:
   sdk: '>=2.18.0-271.7.beta <3.0.0'
-  
-dependencies:
-  flutter:
-    sdk: flutter
+
+# dependencies:
+#   path: ^1.8.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
-flutter:
-  uses-material-design: true
+  flutter:       # Required for every Flutter project
+      sdk: flutter
+  lints: ^2.0.0
+  test: ^1.16.0
