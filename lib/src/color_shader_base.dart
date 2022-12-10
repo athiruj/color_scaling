@@ -62,7 +62,10 @@ class ColorShader {
   /// * double `scale` is `0.0(0%)` to `1.0(100%)` of value per level , Default is `1.0(100%)`
   /// 
   /// **Example:**
-  /// `Color(0xff0000).shader(lightLv: 4, darkLv: 5, scale: 1.0)` 
+  /// `Color(0xff0000).shader(lightLv: 4, darkLv: 5, scale: 1.0)`
+  /// 
+  /// ![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader.png?raw=true)
+  /// 
   List<int> shader({int lightLv = 4, int darkLv = 5, double scale = 1}) {
     return lightShader(level: lightLv, scale: scale).reversed.toList() +
         darkShader(level: darkLv, scale: scale).sublist(1);
