@@ -53,26 +53,36 @@ class ColorShader {
   /// The red channel of this color in an 8 bit value.
   int get b => (0x000000ff & value) >> 0;
 
-  List<int> shaderGen({int lightLv = 4, int darkLv = 5, double scale = 1}) {
-    return lightShader(lightLv: lightLv, scale: scale).reversed.toList() +
-        darkShader(darkLv: darkLv, scale: scale).sublist(1);
+  /// [shader] is Function to generate List of Color with shaded
+  /// 
+  /// **required:**
+  ///  
+  /// * int `lightLv` is number of Light Levels, Default is `4` 
+  /// * int `darkLv` is number of Light Levels, Default is `5`
+  /// * double `scale` is `0.0(0%)` to `1.0(100%)` of value per level , Default is `1.0(100%)`
+  /// 
+  /// **Example:**
+  /// `Color(0xff0000).shader(lightLv: 4, darkLv: 5, scale: 1.0)` 
+  List<int> shader({int lightLv = 4, int darkLv = 5, double scale = 1}) {
+    return lightShader(level: lightLv, scale: scale).reversed.toList() +
+        darkShader(level: darkLv, scale: scale).sublist(1);
   }
 
-  List<int> lightShader({required int lightLv, double scale = 1}) {
-    return List.generate(lightLv + 1,
-        (int idx) => lightShading(lightLv: lightLv, pos: idx, scale: scale));
+  List<int> lightShader({required int level, double scale = 1}) {
+    return List.generate(level + 1,
+        (int idx) => lightShading(level: level, pos: idx, scale: scale));
   }
 
-  List<int> darkShader({required int darkLv, double scale = 1}) {
-    return List.generate(darkLv + 1,
-        (int idx) => darkShading(darkLv: darkLv, pos: idx, scale: scale));
+  List<int> darkShader({required int level, double scale = 1}) {
+    return List.generate(level + 1,
+        (int idx) => darkShading(level: level, pos: idx, scale: scale));
   }
 
 /// Return new Color with lighter shade
 int lightShading({
 
-      /// [lightLv] is `Light Level`
-      required int lightLv,
+      /// [level] is `Light Level`
+      required int level,
 
       /// [pos] is position of Color in `Light level`
       required int pos,
@@ -80,21 +90,21 @@ int lightShading({
       /// [scale]
       double scale = 1}) {
 
-    assert(lightLv != 0, 'light shade level was zero.');
-    assert(lightLv >= pos && pos < 0, 'position was over light shade level');
+    assert(level != 0, 'light shade level was zero.');
+    assert(level >= pos && pos < 0, 'position was over light shade level');
     assert(scale >= 0.0, 'scale was less 0.0');
     assert(scale <= 1.0, 'scale was over 1.0');    
     return (0xff000000                                              |
-           ((r + (r ~/ (lightLv + 1) * scale * pos)).toInt() << 16) |
-           ((g + (g ~/ (lightLv + 1) * scale * pos)).toInt() << 08) |
-           ((b + (b ~/ (lightLv + 1) * scale * pos)).toInt() << 00) & 0xffffffff);
+           ((r + (r ~/ (level + 1) * scale * pos)).toInt() << 16) |
+           ((g + (g ~/ (level + 1) * scale * pos)).toInt() << 08) |
+           ((b + (b ~/ (level + 1) * scale * pos)).toInt() << 00) & 0xffffffff);
   }
 
   /// Return new Color with lighter shade
   int darkShading({
 
       /// [darkLv] is `Dark Level`
-      required int darkLv,
+      required int level,
 
       /// [pos] is position of Color in `Dark Level`
       required int pos,
@@ -102,14 +112,14 @@ int lightShading({
       /// [scale]
       double scale = 1}) {
 
-    assert(darkLv != 0, 'dark shade level was zero.');
-    assert(darkLv >= pos && pos < 0, 'position was over dark shade level');
+    assert(level != 0, 'dark shade level was zero.');
+    assert(level >= pos && pos < 0, 'position was over dark shade level');
     assert(scale >= 0.0, 'scale was less 0.0');
     assert(scale <= 1.0, 'scale was over 1.0');
     return (0xff000000                                             |
-           ((r - (r ~/ (darkLv + 1) * scale * pos)).toInt() << 16) |
-           ((g - (g ~/ (darkLv + 1) * scale * pos)).toInt() << 08) |
-           ((b - (b ~/ (darkLv + 1) * scale * pos)).toInt() << 00) & 0xffffffff);
+           ((r - (r ~/ (level + 1) * scale * pos)).toInt() << 16) |
+           ((g - (g ~/ (level + 1) * scale * pos)).toInt() << 08) |
+           ((b - (b ~/ (level + 1) * scale * pos)).toInt() << 00) & 0xffffffff);
   }
 
 //  @override
