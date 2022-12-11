@@ -6,7 +6,9 @@ version: 1.0.0
 environment:
   sdk: '>=2.18.0-271.7.beta <3.0.0'
 
-dependencies:
+dependencies: 
+  flutter:
+    sdk: flutter
   # flutter:       # Required for every Flutter project
   #     sdk: flutter    
 
