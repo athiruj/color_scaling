@@ -1,4 +1,3 @@
-
 part of color_shader;
 
 extension Shader on Color {
