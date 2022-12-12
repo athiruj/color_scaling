@@ -1,3 +1,5 @@
 library color_shader;
 
-export 'src/color_shader_base.dart';
+import 'package:flutter/material.dart';
+
+part 'src/color_shader_base.dart';
