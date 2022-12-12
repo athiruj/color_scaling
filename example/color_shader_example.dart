@@ -1,5 +1,5 @@
-import '../lib/color_shader.dart';
 import 'package:flutter/material.dart';
+// import 'package:color_shader/color_shader.dart';
 // import 'package:flutter/src/widgets/binding.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 // import 'package:flutter/src/widgets/container.dart';
@@ -28,7 +28,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<int> color = ColorShader(0xff0000).shaderGen();
+  // List<int> color = ColorShader(0xff0000).shader();
+  // Color red = Col;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,9 @@ class _HomePageState extends State<HomePage> {
       body: Center(child: Container(
         child: ListView(
           scrollDirection: Axis.vertical,
-          children: List.generate(color.length, (index) => Container(height: 50,width: 50,color: Color(color[index]))),
+          children: [
+            Text(Color(0xffff00).toString())
+          ],
         ),
       )),
     );
