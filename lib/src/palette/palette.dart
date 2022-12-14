@@ -1,5 +1,7 @@
 part of color_shader;
 
+  /// Creates a color swatch with a variety of shades.
+  /// * `Palette(int value, Map<int, Color>)`
 class Palette extends ColorSwatch<int>{
   /// Creates a color swatch with a variety of shades.
   ///
