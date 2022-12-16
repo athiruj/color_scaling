@@ -86,11 +86,26 @@ class Shader {
 
   Palette palette({double? scale}) {
     _scale = scale ?? _scale;
-    List<int> key = [0,50,100,200,300,400,500,600,700,800,900,1000];
+    _shades = 10;
+    List<Color> key = [];
     // for (var ls in l){
 
     // }
-    return Palette(value,<int, Color>{500 : Color(value)});
+    return Palette(value,
+       <int, Color>{   
+         0 : Color(value),
+        50 : Color(value),
+       100 : Color(value),
+       200 : Color(value),
+       300 : Color(value),
+       400 : Color(value),
+       500 : Color(value),
+       600 : Color(value),
+       700 : Color(value),
+       800 : Color(value),
+       900 : Color(value),
+      1000 : Color(value),
+    });
   }
 
   Map<int, Color> paletteMap({double? scale}) {
@@ -102,8 +117,6 @@ class Shader {
     _scale = scale ?? _scale;
     List<Color> l = lightPalette(scale: _scale);
     List<Color> d = darkPalette(scale: _scale);
-    // l.reversed;
-    // l.add(Color(value));
     return l.reversed.toList()+ [Color(value)] + d;
   }
 
