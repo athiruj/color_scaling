@@ -5,16 +5,11 @@ version: 1.0.0
 
 environment:
   sdk: '>=2.18.0-271.7.beta <3.0.0'
-  # sdk: '>=2.11.0-271.7.beta <3.0.0'
 
-dependencies: 
-  flutter:
-    sdk: flutter
-  # flutter:       # Required for every Flutter project
-  #     sdk: flutter    
+dependencies:
+  flutter:       # Required for every Flutter project
+    sdk: flutter       
 
 dev_dependencies:
-  # flutter:       # Required for every Flutter project
-  #     sdk: flutter
   lints: ^2.0.0
   test: ^1.16.0
