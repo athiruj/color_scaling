@@ -2,8 +2,13 @@ part of color_shader;
 
 class Shader {
   final int value;
+
   int _shades = 10;
-  int _pos = 6;
+
+  int _pos = 5;
+
+  bool _fullScale = false;
+
   double _scale = 1.0;
 
   /// Normaly Color Construct is from the lower 32 bits
@@ -23,10 +28,12 @@ class Shader {
   ///
   /// int 32bits, int 24bits
   // Shader(int value,{this.shades,this.pos}) : value = value & 0xffffffff;
-  Shader(int value,{int? shades,int? pos}): value = value & 0xffffffff{
-     _shades = shades ?? _shades;
-     _pos = pos ?? _pos;
-     }
+  Shader(int value, {int? shades, int? pos, bool fullScale = false})
+      : value = value & 0xffffffff {
+    _shades = shades ?? _shades;
+    _pos = pos ?? _pos;
+    _fullScale = fullScale;
+  }
 
   /// Construct a color from the lower 8 bits of four integers.
   ///
@@ -43,14 +50,10 @@ class Shader {
   /// `255` is the Red value in hex,
   ///  `56` is the Green value in hex,
   /// and `211` is the Blue value in hex.
-  Shader.fromRGB(
-    int r,
-    int g,
-    int b,
-    {int? shades,int? pos}
-  ) : value = (0xff000000 | (r << 16) | (g << 8) | (b << 0)) & 0xffffffff{
-     _shades = shades ?? _shades;
-     _pos = pos ?? _pos;
+  Shader.fromRGB(int r, int g, int b, {int? shades, int? pos})
+      : value = (0xff000000 | (r << 16) | (g << 8) | (b << 0)) & 0xffffffff {
+    _shades = shades ?? _shades;
+    _pos = pos ?? _pos;
   }
 
   /// `[r]` The red channel of this color in an 8 bit value.
@@ -64,95 +67,77 @@ class Shader {
 
   int get shades => _shades;
 
+  bool get fullScale => _fullScale;
+
   int get pos => _pos;
 
-  double get scale => _scale;
+  // double get scale => _scale;
 
-  int get lightShades => _pos - 1;
+  int get lightShades => _pos;
 
-  int get darkShades => _shades - _pos;
-  
-  List<double> get lightScale => [
-    ((255 - r) / (lightShades + 1) * _scale),
-    ((255 - g) / (lightShades + 1) * _scale),
-    ((255 - b) / (lightShades + 1) * _scale)
+  int get darkShades => _shades - (_pos + 1);
+
+  List<double> get lightScale {
+    int s = fullScale ? 0 : 1;
+    return [
+      double.parse(((255 - r) / (lightShades + s) * _scale).toStringAsFixed(2)),
+      double.parse(((255 - g) / (lightShades + s) * _scale).toStringAsFixed(2)),
+      double.parse(((255 - b) / (lightShades + s) * _scale).toStringAsFixed(2))
     ];
-
-  List<double> get darkScale => [
-    (r / (darkShades + 1) * _scale),
-    (g / (darkShades + 1) * _scale),
-    (b / (darkShades + 1) * _scale)
-    ];
-
-  Palette palette({double? scale}) {
-    _scale = scale ?? _scale;
-    _shades = 10;
-    List<Color> key = [];
-    // for (var ls in l){
-
-    // }
-    return Palette(value,
-       <int, Color>{   
-         0 : Color(value),
-        50 : Color(value),
-       100 : Color(value),
-       200 : Color(value),
-       300 : Color(value),
-       400 : Color(value),
-       500 : Color(value),
-       600 : Color(value),
-       700 : Color(value),
-       800 : Color(value),
-       900 : Color(value),
-      1000 : Color(value),
-    });
   }
 
-  Map<int, Color> paletteMap({double? scale}) {
-    // List<Color> list = [];
-    return {1: Color(value)};
+  List<double> get darkScale {
+    int s = fullScale ? 0 : 1;
+    return [
+      double.parse((r / (darkShades + s) * _scale).toStringAsFixed(2)),
+      double.parse((g / (darkShades + s) * _scale).toStringAsFixed(2)),
+      double.parse((b / (darkShades + s) * _scale).toStringAsFixed(2))
+    ];
   }
-  
-  List<Color> paletteList({double? scale}) {
+
+  List<Color> palette({double? scale}) {
     _scale = scale ?? _scale;
     List<Color> l = lightPalette(scale: _scale);
     List<Color> d = darkPalette(scale: _scale);
-    return l.reversed.toList()+ [Color(value)] + d;
+    return l.reversed.toList() + [Color(value)] + d;
   }
 
-
-  List<Color> darkPalette({double? scale}){
-        _scale = scale ?? _scale;
-    return List.generate(darkShades, (n) => Color(0xff000000  |
-        ((r - (darkScale[0] * _scale * (n+1))).toInt() << 16) |
-        ((g - (darkScale[1] * _scale * (n+1))).toInt() << 08) |
-        ((b - (darkScale[2] * _scale * (n+1))).toInt() << 00) & 0xffffffff)
-        );
-  }
-
-  List<Color> lightPalette({double? scale}){
-        _scale = scale ?? _scale;
-    return List.generate(lightShades, (n) => Color(0xff000000  |
-        ((r + (lightScale[0] * _scale * (n+1))).toInt() << 16) |
-        ((g + (lightScale[1] * _scale * (n+1))).toInt() << 08) |
-        ((b + (lightScale[2] * _scale * (n+1))).toInt() << 00) & 0xffffffff)
-        );
-  }
-
-  Color lightness({required int index,double? scale}){
+  List<Color> darkPalette({double? scale}) {
     _scale = scale ?? _scale;
-    return Color(0xff000000  |
-        ((r - (darkScale[0] * _scale * index)).toInt() << 16) |
-        ((g - (darkScale[1] * _scale * index)).toInt() << 08) |
-        ((b - (darkScale[2] * _scale * index)).toInt() << 00) & 0xffffffff);
+    return List.generate(
+        darkShades,
+        (n) => Color(0xff000000 |
+            ((r - (darkScale[0] * _scale * (n + 1))).toInt() << 16) |
+            ((g - (darkScale[1] * _scale * (n + 1))).toInt() << 08) |
+            ((b - (darkScale[2] * _scale * (n + 1))).toInt() << 00) &
+                0xffffffff));
   }
 
-  Color darkness({required int index,double? scale}){
-    return Color(0xff000000  |
-        ((r + (lightScale[0] * _scale * index)).toInt() << 16) |
-        ((g + (lightScale[1] * _scale * index)).toInt() << 08) |
-        ((b + (lightScale[2] * _scale * index)).toInt() << 00) & 0xffffffff);
+  List<Color> lightPalette({double? scale}) {
+    _scale = scale ?? _scale;
+    return List.generate(
+        lightShades,
+        (n) => Color(0xff000000 |
+            ((r + (lightScale[0] * _scale * (n + 1))).toInt() << 16) |
+            ((g + (lightScale[1] * _scale * (n + 1))).toInt() << 08) |
+            ((b + (lightScale[2] * _scale * (n + 1))).toInt() << 00) &
+                0xffffffff));
   }
+
+  // Color lightness({required int index, double? scale}) {
+  //   _scale = scale ?? _scale;
+  //   return Color(0xff000000 |
+  //       ((r - (darkScale[0] * _scale * index)).toInt() << 16) |
+  //       ((g - (darkScale[1] * _scale * index)).toInt() << 08) |
+  //       ((b - (darkScale[2] * _scale * index)).toInt() << 00) & 0xffffffff);
+  // }
+
+  // Color darkness({required int index, double? scale}) {
+  //   return Color(0xff000000 |
+  //       ((r + (lightScale[0] * _scale * index)).toInt() << 16) |
+  //       ((g + (lightScale[1] * _scale * index)).toInt() << 08) |
+  //       ((b + (lightScale[2] * _scale * index)).toInt() << 00) & 0xffffffff);
+  // }
 }
 
 // extension ColorShader on Color {
