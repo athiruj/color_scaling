@@ -46,26 +46,26 @@ void main() {
           ]));
     });
 
+    test('Lightness Test', (){
+      expect(shader.lightness(scale: 0.5), equals(Color(0xffff7f7f)));  
+    });
+
+    test('Darkness Test', (){
+      expect(shader.darkness(scale: 0.5), equals(Color(0xff7f0000)));  
+    });
+
     test('Default Properties Test', () {
       // print('All shades number of palette (default)');
       expect(shader.shades, equals(10));
 
-      // print('Position of default (default)');
-      expect(shader.pos, equals(5));
+      // print('indexition of default (default)');
+      expect(shader.index, equals(5));
 
       // print('Percent difference values ​​per scale (default)');
 
       // print('All shades number of light side palette (default)');
       expect(shader.lightShades, equals(5));
 
-      // print('All shades number of dark side palette (default)');
-      expect(shader.darkShades, equals(4));
-
-      // print('List of difference values ​​per darkness scale in palette');
-      expect(shader.darkScale, equals([51.0, 0.0, 0.0]));
-
-      // print('List of difference values ​​per lightness scale in palette');
-      expect(shader.lightScale, equals([0.0, 42.5, 42.5]));
     });
   });
   group('Shader Class (Default RGB) ', () {
@@ -153,28 +153,71 @@ void main() {
     });
     test('Full scale Properties Test', () {
       // print('All shades number of palette (default)');
-      print(shader.shades);
       expect(shader.shades, equals(10));
 
-      // print('Position of default (default)');
-      print(shader.pos);
-      expect(shader.pos, equals(5));
+      // print('indexition of default (default)');
+      expect(shader.index, equals(5));
 
       // print('All shades number of light side palette (default)');
-      print(shader.lightShades);
       expect(shader.lightShades, equals(5));
 
       // print('All shades number of dark side palette (default)');
-      print(shader.darkShades);
       expect(shader.darkShades, equals(4));
 
-      // print('List of difference values ​​per darkness scale in palette');
-      print(shader.darkScale);
-      expect(shader.darkScale, equals([63.75, 0.0, 0.0]));
+    });
+  }));
+  group('Shader Class (Full Scale RGB Test)', (() {
+    Shader shader = Shader.fromRGB(255, 0, 0, fullScale: true);
+    test('.paletteList()', () {
+      expect(
+          shader.palette(),
+          equals([
+            Color(0xffffffff),
+            Color(0xffffcccc),
+            Color(0xffff9999),
+            Color(0xffff6666),
+            Color(0xffff3333),
+            Color(0xffff0000),
+            Color(0xffbf0000),
+            Color(0xff7f0000),
+            Color(0xff3f0000),
+            Color(0xff000000)
+          ]));
+    });
+    test('.lightPalette()', () {
+      expect(
+          shader.lightPalette(),
+          equals([
+            Color(0xffff3333),
+            Color(0xffff6666),
+            Color(0xffff9999),
+            Color(0xffffcccc),
+            Color(0xffffffff)
+          ]));
+    });
+    test('.darkPalette()', () {
+      expect(
+          shader.darkPalette(),
+          equals([
+            Color(0xffbf0000),
+            Color(0xff7f0000),
+            Color(0xff3f0000),
+            Color(0xff000000)
+          ]));
+    });
+    test('Full scale Properties Test', () {
+      // print('All shades number of palette (default)');
+      expect(shader.shades, equals(10));
 
-      // print('List of difference values ​​per lightness scale in palette');
-      print(shader.lightScale);
-      expect(shader.lightScale, equals([0.0, 51.0, 51.0]));
+      // print('indexition of default (default)');
+      expect(shader.index, equals(5));
+
+      // print('All shades number of light side palette (default)');
+      expect(shader.lightShades, equals(5));
+
+      // print('All shades number of dark side palette (default)');
+      expect(shader.darkShades, equals(4));
+
     });
   }));
 
@@ -220,7 +263,7 @@ void main() {
   }));
 
   group('Shader Class (Custom)', () {
-    Shader shader = Shader(0xfff2f0d9, shades: 7, pos: 4);
+    Shader shader = Shader(0xfff2f0d9, shades: 7, index: 4);
     test('.paletteList()', () {
       expect(
           shader.palette(scale: 0.9),
@@ -253,8 +296,8 @@ void main() {
       // print('All shades number of palette (default)');
       expect(shader.shades, equals(7));
 
-      // print('Position of default (default)');
-      expect(shader.pos, equals(4));
+      // print('indexition of default (default)');
+      expect(shader.index, equals(4));
 
       // print('All shades number of light side palette (default)');
       expect(shader.lightShades, equals(4));
@@ -262,11 +305,6 @@ void main() {
       // print('All shades number of dark side palette (default)');
       expect(shader.darkShades, equals(2));
 
-      // print('List of difference values ​​per default darkness scale in palette');
-      expect(shader.darkScale, equals([72.6, 72.0, 65.1]));
-
-      // print('List of difference values ​​per default lightness scale in palette');
-      expect(shader.lightScale, equals([2.34, 2.7, 6.84]));
     });
   });
 
@@ -305,4 +343,37 @@ void main() {
           ]));
     });
   });
+
+   group('When Error Shader Class (Default 32bits) ', () {
+    Shader shader = Shader(0xffff0000 ,shades: 3,index: 5);
+
+    test('Scale Error .palette()', () {
+      expect(() =>
+          shader.palette(scale: 1.2),
+          throwsA(isA<AssertionError>()));
+      expect(() =>
+          shader.palette(scale: -1.2),
+          throwsA(isA<AssertionError>()));
+    });
+
+    test('Scale Error .lightPalette()', () {
+      expect(() =>
+          shader.lightPalette(scale: 5),
+          throwsA(isA<AssertionError>()));
+      expect(() =>
+          shader.lightPalette(scale: -6),
+          throwsA(isA<AssertionError>()));
+    });
+
+    test('Scale Error .darkPalette()', () {
+      expect(() =>
+          shader.darkPalette(scale: 2),
+          throwsA(isA<AssertionError>()));
+      expect(() =>
+          shader.darkPalette(scale: -0.5),
+          throwsA(isA<AssertionError>()));
+    });
+
+  });
+  
 }
