@@ -4,14 +4,14 @@ Color Shader is package to generate color shading palette with lightness value f
 ![HSL](https://github.com/athiruj/color_shader/blob/master/tutorials_img/HSL.png?raw=true)
 
 ## Constructor
-`### Shader(int value)`
+### `Shader(int value)`
  Color Construct is from the lower 32 bits
 
 ```dart
 Shader color = Shader(0xff0000) // Red
 ```
 
-`### Shader(int r, int g, int b)`
+### `Shader(int r, int g, int b)`
  Construct a color from the lower 8 bits of four integers.
    * `r` is red, from 0 to 255.
    * `g` is green, from 0 to 255.
@@ -29,7 +29,7 @@ Shader color = Shader(00, 255, 00) // Green
  - #### [.lightness()]() 
  - #### [.darkness()]()
  
-`### List\<Color> .palette({double? scale})`
+### `List\<Color> .palette({double? scale})`
 function to create a palette with shading in form of a `List<Color>`.
  
 > ![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_default.png?raw=true) 
@@ -53,7 +53,7 @@ List<Color> colorList = color.palrtte();
 
 ```
 
-`### List\<Color> .lightPalette({double? scale})`
+### `List\<Color> .lightPalette({double? scale})`
 function to create a light part of the palette.
  
 > ![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/lightPalette_default.png?raw=true) 
@@ -72,7 +72,7 @@ List<Color> colorList = color.lightPalrtte();
 
 ```
 
-`### List\<Color> .darkPalette({double? scale})`
+### `List\<Color> .darkPalette({double? scale})`
 function to create a dark part of the palette.
 
  > ![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/darkPalette_default.png?raw=true) 
