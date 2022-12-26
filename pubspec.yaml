@@ -1,10 +1,10 @@
 name: color_shader
-description: A starting point for Dart libraries or applications.
+description: A package to gennerate Color Shading
 version: 1.0.0
 homepage: https://github.com/athiruj/color_shader
 
 environment:
-  sdk: '>=2.18.0-271.7.beta <3.0.0'
+  sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
   flutter:       # Required for every Flutter project
