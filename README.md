@@ -1,5 +1,5 @@
 # Color Shader
-Color Shader is package to generate color shading palette with lightness value from [HSL](https://color.lukas-stratmann.com/color-systems/hsl.html) cylinder.
+> Color Shader is package to generate color shading palette with lightness value from [HSL](https://color.lukas-stratmann.com/color-systems/hsl.html) cylinder.
 
 ![HSL](https://github.com/athiruj/color_shader/blob/master/tutorials_img/HSL.png?raw=true)
 
