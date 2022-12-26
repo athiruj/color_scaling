@@ -4,14 +4,14 @@ Color Shader is package to generate color shading palette with lightness value f
 ![HSL](https://github.com/athiruj/color_shader/blob/master/tutorials_img/HSL.png?raw=true)
 
 ## Constructor
-#### Shader(int value)
+### Shader(int value)
  Color Construct is from the lower 32 bits
 
 ```dart
 Shader color = Shader(0xff0000) // Red
 ```
 
-#### Shader(int r, int g, int b)
+### Shader(int r, int g, int b)
  Construct a color from the lower 8 bits of four integers.
    * `r` is red, from 0 to 255.
    * `g` is green, from 0 to 255.
@@ -29,7 +29,27 @@ Shader color = Shader(00, 255, 00) // Green
  - #### [.lightness()]() 
  - #### [.darkness()]()
  
- 
+### .palette({double? scale})
+function to create a palette with shading in the form of a `List<Color>`.
+```dart
+
+Shader color = Shader(0xff0000);
+List<Color> colorList = color.palrtte(); 
+//  output:[
+//          Color(0xffffd4d4),
+//          Color(0xffffaaaa),
+//          Color(0xffff7f7f),
+//          Color(0xffff5555),
+//          Color(0xffff2a2a),
+//          Color(0xffff0000),
+//          Color(0xffcc0000),
+//          Color(0xff990000),
+//          Color(0xff660000),
+//          Color(0xff330000)
+//         ]
+
+```
+![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_default.png?raw=true) 
 ## Source
  - [The Three Components of Color](https://www.virtualartacademy.com/three-components-of-color/)
  - [HSL](https://color.lukas-stratmann.com/color-systems/hsl.html)
