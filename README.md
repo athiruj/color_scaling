@@ -22,17 +22,18 @@ Shader color = Shader(00, 255, 00) // Green
 ```
 
 ## Features
- - #### [.palette()]() - function to create a palette with shading in the form of a `List<Color>`.
- - #### [.lightPalette()]() - function to create a light palette in the form of a `List<Color>`.
- - #### [.darkPalette()]() - function to create a dark palette in the form of a `List<Color>`.
+ - #### [.palette()]() - function to create a palette with shading in form of a `List<Color>`.
+ - #### [.lightPalette()]() - function to create a light palette in form of a `List<Color>`.
+ - #### [.darkPalette()]() - function to create a dark palette in form of a `List<Color>`.
  
  - #### [.lightness()]() 
  - #### [.darkness()]()
  
-### .palette({double? scale})
-function to create a palette with shading in the form of a `List<Color>`.
+### List<Color> .palette({double? scale})
+function to create a palette with shading in form of a `List<Color>`.
+![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_default.png?raw=true) 
 ```dart
-
+// Shader(int value, shades: 10, index: 5, fullScale: false)
 Shader color = Shader(0xff0000);
 List<Color> colorList = color.palrtte(); 
 //  output:[
@@ -49,7 +50,39 @@ List<Color> colorList = color.palrtte();
 //         ]
 
 ```
-![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_default.png?raw=true) 
+
+### List<Color> .lightPalette({double? scale})
+function to create a light part of the palette.
+![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/lightPalette_default.png?raw=true) 
+```dart
+// Shader(int value, shades: 10, index: 5, fullScale: false)
+Shader color = Shader(0xff0000);
+List<Color> colorList = color.lightPalrtte(); 
+//  output:[
+//          Color(0xffffd4d4),
+//          Color(0xffffaaaa),
+//          Color(0xffff7f7f),
+//          Color(0xffff5555),
+//          Color(0xffff2a2a),
+//         ]
+
+```
+### List<Color> .darkPalette({double? scale})
+function to create a dark part of the palette.
+![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/darkPalette_default.png?raw=true) 
+```dart
+// Shader(int value, shades: 10, index: 5, fullScale: false)
+Shader color = Shader(0xff0000);
+List<Color> colorList = color.lightPalrtte(); 
+//  output:[
+//          Color(0xffcc0000),
+//          Color(0xff990000),
+//          Color(0xff660000),
+//          Color(0xff330000)
+//         ]
+
+```
+
 ## Source
  - [The Three Components of Color](https://www.virtualartacademy.com/three-components-of-color/)
  - [HSL](https://color.lukas-stratmann.com/color-systems/hsl.html)
