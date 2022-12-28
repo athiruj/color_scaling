@@ -3,7 +3,7 @@ part of color_shader;
 class Shader {
   final int value;
 
-  /// number of color shades 
+  /// number of color shades
   int _shades = 10;
 
   /// position of main color in palette
@@ -32,7 +32,7 @@ class Shader {
   /// **parameter:**
   /// * **int shades**
   ///   number of Color in palette.
-  /// 
+  ///
   /// * **int index**
   ///   position of main Color in palette.
   ///
@@ -44,7 +44,7 @@ class Shader {
   ///   * `fullScale: true`
   ///   Full scale with Black White
   /// ![Shader_full](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_full.png?raw=true)
-  /// 
+  ///
   Shader(int value, {int? shades, int? index, bool fullScale = false})
       : value = value & 0xffffffff {
     assert(_shades >= _index, 's');
@@ -69,15 +69,16 @@ class Shader {
   /// `255` is the Red value in hex,
   ///  `56` is the Green value in hex,
   /// and `211` is the Blue value in hex.
-  Shader.fromRGB(int r, int g, int b, {int? shades, int? index, bool fullScale = false})
-      : value = (0xff000000 | (r << 16) | (g << 8) | (b << 0)) & 0xffffffff{
+  Shader.fromRGB(int r, int g, int b,
+      {int? shades, int? index, bool fullScale = false})
+      : value = (0xff000000 | (r << 16) | (g << 8) | (b << 0)) & 0xffffffff {
     assert(_shades >= _index, 's');
-    assert(_shades >= 0,'s');
+    assert(_shades >= 0, 's');
     _shades = shades ?? _shades;
     _index = index ?? _index;
     _fullScale = fullScale;
   }
-  
+
   /// `[r]` The red channel of this color in an 8 bit value.
   int get r => (0x00ff0000 & value) >> 16;
 
@@ -148,7 +149,6 @@ class Shader {
     return l.reversed.toList() + [Color(value)] + d;
   }
 
-
   /// [lightPalette] is function to create a light palette in the form of a `List<Color>`.
   ///
   /// **parameter:**
@@ -172,7 +172,7 @@ class Shader {
   ///
   List<Color> lightPalette({double? scale}) {
     _scale = scale ?? _scale;
-    assert(_scale >= 0.0 && _scale <= 1.0,'0.0 >= scale <= 1.0');
+    assert(_scale >= 0.0 && _scale <= 1.0, '0.0 >= scale <= 1.0');
     return List.generate(
         lightShades,
         (n) => Color(0xff000000 |
@@ -201,7 +201,7 @@ class Shader {
   ///    ]
   ///```
   /// ![darkPalette](https://github.com/athiruj/color_shader/blob/master/tutorials_img/darkPalette_default.png?raw=true)
-  /// 
+  ///
   List<Color> darkPalette({double? scale}) {
     _scale = scale ?? _scale;
     assert(_scale >= 0.0 && _scale <= 1.0, '0.0 >= scale <= 1.0');
@@ -214,7 +214,7 @@ class Shader {
                 0xffffffff));
   }
 
-  /// Shading % of value to White 
+  /// Shading % of value to White
   Color lightness({required double? scale}) {
     _scale = scale ?? _scale;
     return Color(0xff000000 |
@@ -231,6 +231,4 @@ class Shader {
         ((g - (g * _scale)).toInt() << 08) |
         ((b - (b * _scale)).toInt() << 00) & 0xffffffff);
   }
-
 }
-
