@@ -4,11 +4,11 @@ version: 1.0.0
 homepage: https://github.com/athiruj/color_shader
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  flutter:       # Required for every Flutter project
-    sdk: flutter       
+  flutter: # Required for every Flutter project
+    sdk: flutter
 
 dev_dependencies:
   lints: ^2.0.0

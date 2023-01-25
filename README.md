@@ -26,10 +26,10 @@ Shader color = Shader(00, 255, 00) // Green
  - #### [.lightPalette()]() - function to create a light palette in form of a `List<Color>`.
  - #### [.darkPalette()]() - function to create a dark palette in form of a `List<Color>`.
  
- - #### [.lightness()]() 
- - #### [.darkness()]()
+ - #### [.lightness()]() - Shading % of value to White
+ - #### [.darkness()]() - Shading % of value to Black
  
-### `List\<Color> .palette({double? scale})`
+### ` .palette({double? scale})`
 function to create a palette with shading in form of a `List<Color>`.
  
 > ![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_default.png?raw=true) 
@@ -53,7 +53,7 @@ List<Color> colorList = color.palrtte();
 
 ```
 
-### `List\<Color> .lightPalette({double? scale})`
+### `.lightPalette({double? scale})`
 function to create a light part of the palette.
  
 > ![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/lightPalette_default.png?raw=true) 
@@ -72,7 +72,7 @@ List<Color> colorList = color.lightPalrtte();
 
 ```
 
-### `List\<Color> .darkPalette({double? scale})`
+### `.darkPalette({double? scale})`
 function to create a dark part of the palette.
 
  > ![](https://github.com/athiruj/color_shader/blob/master/tutorials_img/darkPalette_default.png?raw=true) 

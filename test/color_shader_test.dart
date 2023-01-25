@@ -46,12 +46,12 @@ void main() {
           ]));
     });
 
-    test('Lightness Test', (){
-      expect(shader.lightness(scale: 0.5), equals(Color(0xffff7f7f)));  
+    test('Lightness Test', () {
+      expect(shader.lightness(scale: 0.5), equals(Color(0xffff7f7f)));
     });
 
-    test('Darkness Test', (){
-      expect(shader.darkness(scale: 0.5), equals(Color(0xff7f0000)));  
+    test('Darkness Test', () {
+      expect(shader.darkness(scale: 0.5), equals(Color(0xff7f0000)));
     });
 
     test('Default Properties Test', () {
@@ -65,7 +65,6 @@ void main() {
 
       // print('All shades number of light side palette (default)');
       expect(shader.lightShades, equals(5));
-
     });
   });
   group('Shader Class (Default RGB) ', () {
@@ -163,7 +162,6 @@ void main() {
 
       // print('All shades number of dark side palette (default)');
       expect(shader.darkShades, equals(4));
-
     });
   }));
   group('Shader Class (Full Scale RGB Test)', (() {
@@ -217,7 +215,6 @@ void main() {
 
       // print('All shades number of dark side palette (default)');
       expect(shader.darkShades, equals(4));
-
     });
   }));
 
@@ -304,7 +301,6 @@ void main() {
 
       // print('All shades number of dark side palette (default)');
       expect(shader.darkShades, equals(2));
-
     });
   });
 
@@ -344,36 +340,26 @@ void main() {
     });
   });
 
-   group('When Error Shader Class (Default 32bits) ', () {
-    Shader shader = Shader(0xffff0000 ,shades: 3,index: 5);
+  group('When Error Shader Class (Default 32bits) ', () {
+    Shader shader = Shader(0xffff0000, shades: 3, index: 5);
 
     test('Scale Error .palette()', () {
-      expect(() =>
-          shader.palette(scale: 1.2),
-          throwsA(isA<AssertionError>()));
-      expect(() =>
-          shader.palette(scale: -1.2),
-          throwsA(isA<AssertionError>()));
+      expect(() => shader.palette(scale: 1.2), throwsA(isA<AssertionError>()));
+      expect(() => shader.palette(scale: -1.2), throwsA(isA<AssertionError>()));
     });
 
     test('Scale Error .lightPalette()', () {
-      expect(() =>
-          shader.lightPalette(scale: 5),
-          throwsA(isA<AssertionError>()));
-      expect(() =>
-          shader.lightPalette(scale: -6),
-          throwsA(isA<AssertionError>()));
+      expect(
+          () => shader.lightPalette(scale: 5), throwsA(isA<AssertionError>()));
+      expect(
+          () => shader.lightPalette(scale: -6), throwsA(isA<AssertionError>()));
     });
 
     test('Scale Error .darkPalette()', () {
-      expect(() =>
-          shader.darkPalette(scale: 2),
-          throwsA(isA<AssertionError>()));
-      expect(() =>
-          shader.darkPalette(scale: -0.5),
+      expect(
+          () => shader.darkPalette(scale: 2), throwsA(isA<AssertionError>()));
+      expect(() => shader.darkPalette(scale: -0.5),
           throwsA(isA<AssertionError>()));
     });
-
   });
-  
 }
