@@ -1,4 +1,4 @@
-part of color_shader;
+part of color_hue_n_tint;
 
 extension Palette on List<Color> {
   /// [.toListInt] generate New List with inside is `Color type` in List convert to `Int type`

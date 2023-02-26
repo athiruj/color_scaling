@@ -1,6 +1,6 @@
-part of color_shader;
+part of color_hue_n_tint;
 
-class Shader {
+class HueNTint {
   final int value;
 
   /// number of color shades
@@ -15,8 +15,8 @@ class Shader {
   double _scale = 1.0;
 
   /// Normaly Color Construct is from the lower 32 bits
-  /// but [Shader] not support `opcity` or `alpha value` in hex
-  /// so [Shader] Construct is from the lower 24 bits
+  /// but [HueNTint] not support `opcity` or `alpha value` in hex
+  /// so [HueNTint] Construct is from the lower 24 bits
   ///
   /// The bits are interpreted as follows:
   ///
@@ -40,15 +40,15 @@ class Shader {
   ///   full minimum & maximum value of scale 0 -> 255
   ///   * `fullScale: false`
   ///   Black White Safety
-  /// ![Shader_default](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_default.png?raw=true)
+  /// ![Shader_default](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/Shader_default.png?raw=true)
   ///   * `fullScale: true`
   ///   Full scale with Black White
-  /// ![Shader_full](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_full.png?raw=true)
+  /// ![Shader_full](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/Shader_full.png?raw=true)
   ///
-  Shader(int value, {int? shades, int? index, bool fullScale = false})
+  HueNTint(int value,{ int? shades, int? index, bool fullScale = false})
       : value = value & 0xffffffff {
-    assert(_shades >= _index, 's');
-    assert(_shades >= 0, 's');
+    assert(_shades >= _index, 'shades($_shades) >= index($_index)');
+    assert(_shades >= 0, 'Shades($_shades) can\'s >= 0');
     _shades = shades ?? _shades;
     _index = index ?? _index;
     _fullScale = fullScale;
@@ -65,15 +65,18 @@ class Shader {
   /// See also [fromRGB], which takes the alpha value as a floating point
   /// value.
   ///
-  /// For example, `const ColorShade(255, 56, 211)`.
+  /// For example, `const HueNTint(255, 56, 211)`.
   /// `255` is the Red value in hex,
   ///  `56` is the Green value in hex,
   /// and `211` is the Blue value in hex.
-  Shader.fromRGB(int r, int g, int b,
+  HueNTint.fromRGB(int r, int g, int b,
       {int? shades, int? index, bool fullScale = false})
       : value = (0xff000000 | (r << 16) | (g << 8) | (b << 0)) & 0xffffffff {
-    assert(_shades >= _index, 's');
-    assert(_shades >= 0, 's');
+    assert(_shades >= _index, 'shades($_shades) >= index($_index)');
+    assert(_shades >= 0, 'Shades($_shades) can\'s >= 0');
+    assert(r > 0 && r > 255, 'red value from 0 - 255');
+    assert(g > 0 && g > 255, 'green value from 0 - 255');
+    assert(b > 0 && b > 255, 'blue value from 0 - 255');
     _shades = shades ?? _shades;
     _index = index ?? _index;
     _fullScale = fullScale;
@@ -140,23 +143,23 @@ class Shader {
   ///       Color(0xff330000)
   ///    ]
   ///```
-  /// ![Shader_defualt](https://github.com/athiruj/color_shader/blob/master/tutorials_img/Shader_default.png?raw=true)
+  /// ![Shader_defualt](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/Shader_default.png?raw=true)
   ///
   List<Color> palette({double? scale}) {
     _scale = scale ?? _scale;
-    List<Color> l = lightPalette(scale: _scale);
-    List<Color> d = darkPalette(scale: _scale);
-    return l.reversed.toList() + [Color(value)] + d;
+    List<Color> l = tints(scale: _scale);
+    List<Color> d = hues(scale: _scale);
+    return l.reversed.toList() + [Color(0xff000000 | value & 0xffffffff)] + d;
   }
 
-  /// [lightPalette] is function to create a light palette in the form of a `List<Color>`.
+  /// [tints] is function to create a light palette in the form of a `List<Color>`.
   ///
   /// **parameter:**
   ///
   /// * double `scale` is `0.0(0%)` to `1.0(100%)` of value per Color , Default is `1.0(100%)`
   ///
   /// **Example:**
-  /// * `Color(0xff0000, fullScale: false).lightPalate()`
+  /// * `HueNTint(0xff0000, fullScale: false).tints()`
   ///
   ///   **output:**
   /// ```
@@ -168,9 +171,9 @@ class Shader {
   ///       Color(0xffff2a2a),
   ///    ]
   ///```
-  /// ![lightPalette](https://github.com/athiruj/color_shader/blob/master/tutorials_img/lightPalette_default.png?raw=true)
+  /// ![lightPalette](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/lightPalette_default.png?raw=true)
   ///
-  List<Color> lightPalette({double? scale}) {
+  List<Color> tints({double? scale}) {
     _scale = scale ?? _scale;
     assert(_scale >= 0.0 && _scale <= 1.0, '0.0 >= scale <= 1.0');
     return List.generate(
@@ -182,14 +185,14 @@ class Shader {
                 0xffffffff));
   }
 
-  /// [darkPalette] is function to create a dark palette in the form of a `List<Color>`.
+  /// [hues] is function to create a dark palette in the form of a `List<Color>`.
   ///
   /// **parameter:**
   ///
   /// * double `scale` is `0.0(0%)` to `1.0(100%)` of value per Color , Default is `1.0(100%)`
   ///
   /// **Example:**
-  /// * `Color(0xff0000, fullScale: false).darkPalate()`
+  /// * `HueNTint(0xff0000, fullScale: false).hues()`
   ///
   ///   **output:**
   /// ```
@@ -200,9 +203,9 @@ class Shader {
   ///       Color(0xff330000)
   ///    ]
   ///```
-  /// ![darkPalette](https://github.com/athiruj/color_shader/blob/master/tutorials_img/darkPalette_default.png?raw=true)
+  /// ![darkPalette](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/darkPalette_default.png?raw=true)
   ///
-  List<Color> darkPalette({double? scale}) {
+  List<Color> hues({double? scale}) {
     _scale = scale ?? _scale;
     assert(_scale >= 0.0 && _scale <= 1.0, '0.0 >= scale <= 1.0');
     return List.generate(
@@ -215,20 +218,20 @@ class Shader {
   }
 
   /// Shading % of value to White
-  Color lightness({required double? scale}) {
-    _scale = scale ?? _scale;
-    return Color(0xff000000 |
-        ((r + ((255 - r) * _scale)).toInt() << 16) |
-        ((g + ((255 - g) * _scale)).toInt() << 08) |
-        ((b + ((255 - b) * _scale)).toInt() << 00) & 0xffffffff);
-  }
+  // Color lightness({required double? scale}) {
+  //   _scale = scale ?? _scale;
+  //   return Color(0xff000000 |
+  //       ((r + ((255 - r) * _scale)).toInt() << 16) |
+  //       ((g + ((255 - g) * _scale)).toInt() << 08) |
+  //       ((b + ((255 - b) * _scale)).toInt() << 00) & 0xffffffff);
+  // }
 
   /// Shading % of value to Black
-  Color darkness({required double? scale}) {
-    _scale = scale ?? _scale;
-    return Color(0xff000000 |
-        ((r - (r * _scale)).toInt() << 16) |
-        ((g - (g * _scale)).toInt() << 08) |
-        ((b - (b * _scale)).toInt() << 00) & 0xffffffff);
-  }
+  // Color darkness({required double? scale}) {
+  //   _scale = scale ?? _scale;
+  //   return Color(0xff000000 |
+  //       ((r - (r * _scale)).toInt() << 16) |
+  //       ((g - (g * _scale)).toInt() << 08) |
+  //       ((b - (b * _scale)).toInt() << 00) & 0xffffffff);
+  // }
 }

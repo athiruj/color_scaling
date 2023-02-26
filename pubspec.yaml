@@ -1,7 +1,7 @@
-name: color_shader
+name: color_hue_n_tint
 description: A package to gennerate Color Shading
-version: 1.0.0
-homepage: https://github.com/athiruj/color_shader
+version: 1.0.1
+homepage: https://github.com/athiruj/color_hue_n_tint
 
 environment:
   sdk: ">=2.18.0 <3.0.0"
