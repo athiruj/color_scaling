@@ -50,7 +50,7 @@ List<Color> colorList = color.palette();
 
 ```
 
-### `.tints({double? scale})`
+### .tints({double? scale})
 function to create a light part of the palette.
  
 > ![](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/lightPalette_default.png?raw=true) 
@@ -69,7 +69,7 @@ List<Color> colorList = color.lightPalette();
 
 ```
 
-### `.hues({double? scale})`
+### .hues({double? scale})
 function to create a dark part of the palette.
 
  > ![](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/darkPalette_default.png?raw=true) 
