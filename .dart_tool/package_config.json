@@ -15,9 +15,9 @@
     },
     {
       "name": "args",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.1",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.4.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "async",
@@ -51,9 +51,9 @@
     },
     {
       "name": "coverage",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/coverage-1.6.1",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/coverage-1.6.3",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "2.18"
     },
     {
       "name": "crypto",
@@ -99,7 +99,7 @@
     },
     {
       "name": "io",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/io-1.0.3",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/io-1.0.4",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -117,9 +117,9 @@
     },
     {
       "name": "logging",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/logging-1.1.0",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/logging-1.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "matcher",
@@ -141,9 +141,9 @@
     },
     {
       "name": "mime",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/mime-1.0.3",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/mime-1.0.4",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "node_preamble",
@@ -213,7 +213,7 @@
     },
     {
       "name": "source_maps",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_maps-0.10.11",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/source_maps-0.10.12",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -249,19 +249,19 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/test-1.22.1",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/test-1.23.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.17",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.18",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_core-0.4.21",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/test_core-0.4.24",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -279,7 +279,7 @@
     },
     {
       "name": "vm_service",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/vm_service-9.4.0",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/vm_service-11.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -291,7 +291,7 @@
     },
     {
       "name": "web_socket_channel",
-      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.2.0",
+      "rootUri": "file:///C:/Users/athir/src/flutter/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-2.3.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -314,7 +314,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-02-26T04:38:36.978406Z",
+  "generated": "2023-02-26T05:44:32.774189Z",
   "generator": "pub",
   "generatorVersion": "2.18.5"
 }

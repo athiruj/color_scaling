@@ -349,24 +349,19 @@ void main() {
     });
 
     test('Scale Error .tints()', () {
-      expect(
-          () => shader.tints(scale: 5), throwsA(isA<AssertionError>()));
-      expect(
-          () => shader.tints(scale: -6), throwsA(isA<AssertionError>()));
+      expect(() => shader.tints(scale: 5), throwsA(isA<AssertionError>()));
+      expect(() => shader.tints(scale: -6), throwsA(isA<AssertionError>()));
     });
 
     test('Scale Error .hues()', () {
-      expect(
-          () => shader.hues(scale: 2), throwsA(isA<AssertionError>()));
-      expect(() => shader.hues(scale: -0.5),
-          throwsA(isA<AssertionError>()));
+      expect(() => shader.hues(scale: 2), throwsA(isA<AssertionError>()));
+      expect(() => shader.hues(scale: -0.5), throwsA(isA<AssertionError>()));
     });
   });
   group('Non full fill (Default 32bits) ', () {
-
     test('1bit', () {
-    HueNTint shader = HueNTint(0xf, shades: 5, index: 2);
-       expect(
+      HueNTint shader = HueNTint(0xf, shades: 5, index: 2);
+      expect(
           shader.palette(),
           equals([
             Color(0xffaaaaaf),
@@ -377,8 +372,8 @@ void main() {
           ]));
     });
     test('2bit', () {
-    HueNTint shader = HueNTint(0xfd, shades: 5, index: 2);
-       expect(
+      HueNTint shader = HueNTint(0xfd, shades: 5, index: 2);
+      expect(
           shader.palette(),
           equals([
             Color(0xffaaaafe),
@@ -389,8 +384,8 @@ void main() {
           ]));
     });
     test('3bit', () {
-    HueNTint shader = HueNTint(0xfda, shades: 5, index: 2);
-       expect(
+      HueNTint shader = HueNTint(0xfda, shades: 5, index: 2);
+      expect(
           shader.palette(),
           equals([
             Color(0xffaaaff2),
@@ -401,8 +396,8 @@ void main() {
           ]));
     });
     test('4bit', () {
-    HueNTint shader = HueNTint(0xfdaf, shades: 5, index: 2);
-       expect(
+      HueNTint shader = HueNTint(0xfdaf, shades: 5, index: 2);
+      expect(
           shader.palette(),
           equals([
             Color(0xffaafee4),
@@ -413,8 +408,8 @@ void main() {
           ]));
     });
     test('5bit', () {
-    HueNTint shader = HueNTint(0xfdafd, shades: 5, index: 2);
-       expect(
+      HueNTint shader = HueNTint(0xfdafd, shades: 5, index: 2);
+      expect(
           shader.palette(),
           equals([
             Color(0xffaff2fe),
@@ -425,8 +420,8 @@ void main() {
           ]));
     });
     test('6bit', () {
-    HueNTint shader = HueNTint(0xfdafdf, shades: 5, index: 2);
-       expect(
+      HueNTint shader = HueNTint(0xfdafdf, shades: 5, index: 2);
+      expect(
           shader.palette(),
           equals([
             Color(0xfffee4f4),
@@ -437,8 +432,8 @@ void main() {
           ]));
     });
     test('7bit', () {
-    HueNTint shader = HueNTint(0xdfdafdf, shades: 5, index: 2);
-       expect(
+      HueNTint shader = HueNTint(0xdfdafdf, shades: 5, index: 2);
+      expect(
           shader.palette(),
           equals([
             Color(0xfffee4f4),
@@ -448,8 +443,5 @@ void main() {
             Color(0xff543a4a)
           ]));
     });
-    });
-
-    
-
+  });
 }

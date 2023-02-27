@@ -45,7 +45,7 @@ class HueNTint {
   ///   Full scale with Black White
   /// ![Shader_full](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/Shader_full.png?raw=true)
   ///
-  HueNTint(int value,{ int? shades, int? index, bool fullScale = false})
+  HueNTint(int value, {int? shades, int? index, bool fullScale = false})
       : value = value & 0xffffffff {
     assert(_shades >= _index, 'shades($_shades) >= index($_index)');
     assert(_shades >= 0, 'Shades($_shades) can\'s >= 0');
