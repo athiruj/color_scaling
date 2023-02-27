@@ -143,11 +143,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 30,
                 width: 80,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15))
-                ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15))),
                 alignment: Alignment.center,
-                child: Text(color.value.toRadixString(16),style: const TextStyle(fontWeight: FontWeight.bold),))),
+                child: Text(
+                  color.value.toRadixString(16),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ))),
       ),
     );
   }
