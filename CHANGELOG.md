@@ -22,3 +22,6 @@
     - .darkness() - delete
 - Bug fix
 
+## 1.0.2
+
+- Example Update
