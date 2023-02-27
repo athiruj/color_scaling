@@ -1,6 +1,8 @@
 # Color_Hue_N_Tint
 > This is package to generate color shading palette with hue and tint value from [HSL](https://color.lukas-stratmann.com/color-systems/hsl.html) cylinder.
 
+![Web Testing](https://colorhuentint.web.app/)
+
 ![HSL](https://github.com/athiruj/color_hue_n_tint/blob/master/tutorials_img/HSL.png?raw=true)
 
 ## Constructor
